@@ -1,0 +1,1 @@
+.\bin\mysql.exe -u root -p"root" -h localhost

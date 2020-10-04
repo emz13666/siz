@@ -1,0 +1,1 @@
+start c:\mysql_siz\bin\mysqld.exe --defaults-file="c:/mysql_siz/my_local.ini"

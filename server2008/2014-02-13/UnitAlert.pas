@@ -1,0 +1,102 @@
+unit UnitAlert;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ExtCtrls,ThreadBeep;
+
+type
+  TfrmAlert = class(TForm)
+    BitBtn1: TBitBtn;
+    Timer1: TTimer;
+    ListBox1: TListBox;
+    Label1: TLabel;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmAlert: TfrmAlert;
+  MyThreadBeep: TThreadBeep;
+
+implementation
+
+uses UnitDM, UnitMenu;
+
+{$R *.dfm}
+
+procedure TfrmAlert.BitBtn1Click(Sender: TObject);
+begin
+  //frmMenu.Show;
+  Close;
+end;
+
+procedure TfrmAlert.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key=vk_escape then BitBtn1Click(Sender);
+end;
+
+
+
+(*procedure InitBeepArray;
+begin
+ with DM do
+ begin
+    Beep.Open;
+    beep.First;
+    SetLength(BeepArray,0);
+    while not beep.Eof do
+    begin
+      SetLength(BeepArray,Length(BeepArray)+1);
+      BeepArray[High(beeparray)].freq := beepfreq.AsInteger;
+      BeepArray[High(beeparray)].dur := beepduration.AsInteger;
+      BeepArray[High(beeparray)].sleep := beepsleep.AsInteger;
+      beep.Next;
+    end;
+    beep.Close;
+ end;
+ counter := 0;
+end;
+  *)
+procedure TfrmAlert.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled := False;
+  MyThreadBeep := TThreadBeep.Create(false);
+    //sound(500,500);
+(*    Sound(beeparray[counter].freq,beeparray[counter].dur);
+    Sleep(beeparray[counter].sleep);
+    inc(counter);
+    if counter=Length(beeparray) then begin {sleep(500);} counter := 0 end;
+*)
+end;
+
+procedure TfrmAlert.FormCreate(Sender: TObject);
+begin
+//  InitBeepArray;
+end;
+
+procedure TfrmAlert.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmAlert := nil;
+end;
+
+procedure TfrmAlert.FormDestroy(Sender: TObject);
+begin
+  pishit := false;
+  if assigned(myThreadBeep) then MyThreadBeep.Terminate;
+  frmAlert := nil;
+end;
+
+end.

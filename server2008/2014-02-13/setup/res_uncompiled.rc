@@ -1,0 +1,3 @@
+MIDAS_DLL RCDATA "midas.dll"
+LIBMYSQL_DLL RCDATA "libmySQL.dll"
+DBEXPMYSQL_DLL RCDATA "dbexpmysql.dll"
